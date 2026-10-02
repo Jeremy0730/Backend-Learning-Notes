@@ -1,0 +1,46 @@
+@DependencyInjectionWebApplication_HostAddress = http://localhost:5120
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast?days=2
+Accept: application/json
+
+###
+
+POST {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast/2026-10-05
+Accept: application/json
+
+###
+
+PUT {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast/2026-10-05
+Content-Type: application/json
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 18,
+  "summary": "Cool"
+}
+
+###
+
+PATCH {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast/2026-10-05
+Content-Type: application/json
+
+{
+  "temperatureC": 21
+}
+
+###
+
+DELETE {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast/2026-10-05
+
+###
