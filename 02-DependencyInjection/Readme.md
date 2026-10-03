@@ -9,11 +9,8 @@ The saved forecasts are no longer a `List<WeatherForecast>` closed over by the l
 | Lesson | Topic |
 | --- | --- |
 | `2.1.Singleton` | One store for the whole process |
-
-Two other lifetimes come later:
-
-- **Scoped** creates one instance for a single request.
-- **Transient** creates a new instance each time an endpoint or constructor asks.
+| `2.2.Scoped` | One trace for a single request |
+| `2.3.Transient` | A new trace each time an endpoint or constructor asks |
 
 ## Files
 
@@ -21,6 +18,8 @@ Two other lifetimes come later:
 | --- | --- |
 | `Program.cs` | Host, service registration, and routes |
 | `WeatherForecastStore.cs` | The list and the operations on it |
+| `RequestTrace.cs` | An id that lives for one request, and a reader that receives it |
+| `TransientTrace.cs` | An id created on every request for the type, and a reader that receives another one |
 | `appsettings.json` | Logging and `AllowedHosts` |
 | `appsettings.Development.json` | Overrides applied when `ASPNETCORE_ENVIRONMENT=Development` |
 | `Properties/launchSettings.json` | URL and environment for local runs |
@@ -33,6 +32,10 @@ The project file only sets `net10.0`, nullable reference types, and implicit usi
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<WeatherForecastStore>();
+builder.Services.AddScoped<RequestTrace>();
+builder.Services.AddScoped<RequestTraceReader>();
+builder.Services.AddTransient<TransientTrace>();
+builder.Services.AddTransient<TransientTraceReader>();
 var app = builder.Build();
 
 app.MapPost("/weatherforecast", (WeatherForecast forecast, WeatherForecastStore store) => { /* store.Save */ });

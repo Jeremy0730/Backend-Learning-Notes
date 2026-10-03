@@ -3,3 +3,4 @@ Backend-Learning-Notes is personal notes on ASP.NET Core Web APIs, written while
 
 - `01-Basics` — routes, query strings, and the five HTTP methods
 - `02-DependencyInjection` — the container supplies a service to each request
+- `03-Middleware` — every request enters the pipeline before an endpoint

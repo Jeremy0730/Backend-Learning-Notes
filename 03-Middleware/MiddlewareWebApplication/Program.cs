@@ -1,10 +1,28 @@
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<WeatherForecastStore>();
-builder.Services.AddScoped<RequestTrace>();
-builder.Services.AddScoped<RequestTraceReader>();
-builder.Services.AddTransient<TransientTrace>();
-builder.Services.AddTransient<TransientTraceReader>();
 var app = builder.Build();
+
+app.Use(async (HttpContext context, RequestDelegate next) =>
+{
+    var method = context.Request.Method;
+    var path = context.Request.Path.Value ?? "/";
+    context.Response.Headers.Append("X-Request-Path", path);
+    await next(context);
+    var status = context.Response.StatusCode;
+    app.Logger.LogInformation("{Method} {Path} finished with {Status}", method, path, status);
+});
+
+app.Use(async (HttpContext context, RequestDelegate next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/weatherforecast/blocked"))
+    {
+        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+        await context.Response.WriteAsJsonAsync(new { error = "this path is stopped by middleware." });
+        return;
+    }
+
+    await next(context);
+});
 
 var summaries = new[]
 {
@@ -70,12 +88,6 @@ app.MapPatch("/weatherforecast/{date}", (DateOnly date, WeatherForecastPatch pat
 
 app.MapDelete("/weatherforecast/{date}", (DateOnly date, WeatherForecastStore store) =>
     store.Remove(date) ? Results.NoContent() : Results.NotFound());
-
-app.MapGet("/request-trace", (RequestTrace trace, RequestTraceReader reader) =>
-    Results.Ok(new { trace = trace.Id, reader = reader.TraceId, sameInstance = ReferenceEquals(trace, reader.Trace) }));
-
-app.MapGet("/transient-trace", (TransientTrace trace, TransientTraceReader reader) =>
-    Results.Ok(new { trace = trace.Id, reader = reader.TraceId, sameInstance = ReferenceEquals(trace, reader.Trace) }));
 
 app.Run();
 

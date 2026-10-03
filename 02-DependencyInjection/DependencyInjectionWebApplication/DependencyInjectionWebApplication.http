@@ -44,3 +44,23 @@ Content-Type: application/json
 DELETE {{DependencyInjectionWebApplication_HostAddress}}/weatherforecast/2026-10-05
 
 ###
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/request-trace
+Accept: application/json
+
+###
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/request-trace
+Accept: application/json
+
+###
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/transient-trace
+Accept: application/json
+
+###
+
+GET {{DependencyInjectionWebApplication_HostAddress}}/transient-trace
+Accept: application/json
+
+###
