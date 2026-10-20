@@ -1,0 +1,93 @@
+@AuthenticationWebApplication_HostAddress = http://localhost:5125
+
+GET {{AuthenticationWebApplication_HostAddress}}/whoami
+Accept: application/json
+
+###
+
+GET {{AuthenticationWebApplication_HostAddress}}/whoami
+X-Api-Key: reader-key
+Accept: application/json
+
+###
+
+GET {{AuthenticationWebApplication_HostAddress}}/whoami
+X-Api-Key: writer-key
+Accept: application/json
+
+###
+
+GET {{AuthenticationWebApplication_HostAddress}}/whoami
+X-Api-Key: wrong-key
+Accept: application/json
+
+###
+
+GET {{AuthenticationWebApplication_HostAddress}}/weatherforecast?days=2
+Accept: application/json
+
+###
+
+POST {{AuthenticationWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{AuthenticationWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: wrong-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{AuthenticationWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: reader-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{AuthenticationWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 100,
+  "summary": "Scorching"
+}
+
+###
+
+POST {{AuthenticationWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+DELETE {{AuthenticationWebApplication_HostAddress}}/weatherforecast/2026-10-05
+X-Api-Key: writer-key
+
+###
