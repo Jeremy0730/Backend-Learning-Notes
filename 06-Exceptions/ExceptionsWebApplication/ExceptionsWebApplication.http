@@ -1,0 +1,27 @@
+@ExceptionsWebApplication_HostAddress = http://localhost:5124
+
+GET {{ExceptionsWebApplication_HostAddress}}/crash
+Accept: application/json
+
+###
+
+GET {{ExceptionsWebApplication_HostAddress}}/weatherforecast?days=2
+Accept: application/json
+
+###
+
+POST {{ExceptionsWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+GET {{ExceptionsWebApplication_HostAddress}}/weatherforecast/2026-10-05
+Accept: application/json
+
+###
