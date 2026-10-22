@@ -1,0 +1,66 @@
+@RateLimitingWebApplication_HostAddress = http://localhost:5126
+
+POST {{RateLimitingWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: reader-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{RateLimitingWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{RateLimitingWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-06",
+  "temperatureC": 18,
+  "summary": "Cool"
+}
+
+###
+
+POST {{RateLimitingWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-07",
+  "temperatureC": 21,
+  "summary": "Warm"
+}
+
+###
+
+POST {{RateLimitingWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+X-Api-Key: writer-b-key
+
+{
+  "date": "2026-10-07",
+  "temperatureC": 21,
+  "summary": "Warm"
+}
+
+###
+
+GET {{RateLimitingWebApplication_HostAddress}}/weatherforecast/2026-10-07
+Accept: application/json
+
+###
