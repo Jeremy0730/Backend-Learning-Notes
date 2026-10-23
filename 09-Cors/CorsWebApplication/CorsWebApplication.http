@@ -1,0 +1,52 @@
+@CorsWebApplication_HostAddress = http://localhost:5127
+
+OPTIONS {{CorsWebApplication_HostAddress}}/weatherforecast
+Origin: http://localhost:5173
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-api-key
+
+###
+
+OPTIONS {{CorsWebApplication_HostAddress}}/weatherforecast
+Origin: http://localhost:9999
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type,x-api-key
+
+###
+
+GET {{CorsWebApplication_HostAddress}}/weatherforecast?days=2
+Origin: http://localhost:9999
+Accept: application/json
+
+###
+
+GET {{CorsWebApplication_HostAddress}}/weatherforecast?days=2
+Origin: http://localhost:5173
+Accept: application/json
+
+###
+
+POST {{CorsWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+Origin: http://localhost:5173
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
+
+POST {{CorsWebApplication_HostAddress}}/weatherforecast
+Content-Type: application/json
+Origin: http://localhost:5173
+X-Api-Key: writer-key
+
+{
+  "date": "2026-10-05",
+  "temperatureC": 25,
+  "summary": "Mild"
+}
+
+###
